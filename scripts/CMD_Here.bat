@@ -71,17 +71,17 @@ REM -------------------------------------------------------------------
 
 :EXIT_BAT
 ENDLOCAL
-GOTO:EOF
+GOTO :EOF
 
 REM ---------------------------------------------
 REM Subroutines
 :SetToFullyExpandedPath
 set %1=%~f2
-goto:EOF
+GOTO :EOF
 
 :ClearCHVars
 set CH_OPEN_NEW_WINDOW=
 set CH_TITLE=
 set CH_CONFIG=
 set CH_WINDOW_DIR=
-goto:EOF
+GOTO :EOF
