@@ -34,7 +34,7 @@ REM -------------------------------------------------------------------
 SET CH_CONFIG_HAS_RUN=1
 GOTO :EOF
 
-REM ---------------------------------------------
+REM -------------------------------------------------------------------
 REM Subroutines
 
 REM Fully Expand a Path
@@ -44,7 +44,7 @@ GOTO :EOF
 
 :AddToPath
 if "%~1"=="" GOTO :EOF
-if "%PATH%"=="" GOTO :AQTP_EmptyPath
+if "%PATH%"=="" GOTO :ATP_EmptyPath
 SETLOCAL
 call :SetToFullyExpandedPath ADD_PATH "%~1"
 if NOT "%PATH:~-1%"==";" set ADD_PATH=;%ADD_PATH%
@@ -54,7 +54,7 @@ GOTO :EOF
 call :SetToFullyExpandedPath PATH "%~1"
 GOTO :EOF
 
-REM ---------------
+REM ---------------------------------------------
 REM Clean up CH_* variables from CMD_Here
 :ClearCHVars
 set CH_OPEN_NEW_WINDOW=
