@@ -23,7 +23,7 @@ REM Optional line below to prevent re-running configuration
 if "%CH_CONFIG_HAS_RUN%"=="1" GOTO :EXIT_BAT
 
 REM This section of the BATCH File can be modified by user for
-REM however they'd like to configure their working environement
+REM however they'd like to configure their working environment
 
 REM Set the Text Color to Green on a Black Background
 REM COLOR 0A
@@ -55,6 +55,12 @@ call :SetToFullyExpandedPath PATH "%~1"
 GOTO :EOF
 
 REM ---------------------------------------------
+:CallIfBatExists
+where %1 >NUL
+if "%ERRORLEVEL%"=="0" call %1
+GOTO :EOF
+
+REM ---------------------------------------------
 REM Clean up CH_* variables from CMD_Here
 :ClearCHVars
 set CH_OPEN_NEW_WINDOW=
@@ -62,3 +68,4 @@ set CH_TITLE=
 set CH_CONFIG=
 set CH_WINDOW_DIR=
 GOTO :EOF
+
