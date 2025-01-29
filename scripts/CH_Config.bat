@@ -5,7 +5,7 @@ rem		for the CMD_Here.bat
 REM	Copyright (c) 2023 Adisak Pochanayon (adisak@gmail.com)
 REM -------------------------------------------------------------------
 
-REM call :SetToFullyExpandedPath SCRIPT_PATH "%~dp0"
+REM call :SetScriptPath
 
 REM -------------------------------------------------------------------
 
@@ -30,17 +30,30 @@ REM COLOR 0A
 
 REM -------------------------------------------------------------------
 
+set CH_CONFIG_HAS_RUN=1
 :EXIT_BAT
-SET CH_CONFIG_HAS_RUN=1
 GOTO :EOF
 
 REM -------------------------------------------------------------------
 REM Subroutines
+REM -------------------------------------------------------------------
+
+REM ":SetScriptPath" works in cases when use of %~dp0 might fail if this script was called with quotes
+REM See: https://stackoverflow.com/questions/12141482/what-is-the-reason-for-batch-file-path-referenced-with-dp0-sometimes-changes-o
+:SetScriptPath
+if "%1"=="" GOTO :SSP_Implicit
+call :SetToFullyExpandedPath %1 "%~dp0"
+GOTO :EOF
+:SSP_Implicit
+call :SetToFullyExpandedPath SCRIPT_PATH "%~dp0"
+GOTO :EOF
 
 REM Fully Expand a Path
 :SetToFullyExpandedPath
-set %~1=%~f2
+set "%1=%~f2"
 GOTO :EOF
+
+REM ---------------------------------------------
 
 :AddToPath
 if "%~1"=="" GOTO :EOF
@@ -55,17 +68,8 @@ call :SetToFullyExpandedPath PATH "%~1"
 GOTO :EOF
 
 REM ---------------------------------------------
+REM Useful Helper for user to call conditionally-existing scripts
 :CallIfBatExists
-where %1 >NUL
-if "%ERRORLEVEL%"=="0" call %1
+where "%~1" >NUL
+if "%ERRORLEVEL%"=="0" call %*
 GOTO :EOF
-
-REM ---------------------------------------------
-REM Clean up CH_* variables from CMD_Here
-:ClearCHVars
-set CH_OPEN_NEW_WINDOW=
-set CH_TITLE=
-set CH_CONFIG=
-set CH_WINDOW_DIR=
-GOTO :EOF
-
