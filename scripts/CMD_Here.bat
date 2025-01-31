@@ -37,12 +37,16 @@ REM -------------------------------------------------------------------
 REM Use 'set CH_OPEN_NEW_WINDOW=1' if you always want to open a new window
 REM Use 'set CH_OPEN_NEW_WINDOW=0' if you want to reuse CMD windows when you call
 REM		CMD_Here.bat for the first time (subsequent calls will open new windows)
-set CH_OPEN_NEW_WINDOW=0
-if "%IS_CH_WINDOW%"=="1" (
-	REM If we're already in a CMD_Here window, then open a new one
-	set CH_OPEN_NEW_WINDOW=1
+if "%CH_OPEN_NEW_WINDOW%"=="" (
+	set CH_OPEN_NEW_WINDOW=0
+	if "%CH_RAN%"=="1" (
+		REM If we're already in a CMD_Here window, then open a new one
+		set CH_OPEN_NEW_WINDOW=1
+	)
 )
-set IS_CH_WINDOW=1
+
+REM Set a flag that CMD_Here has already ran at least once in this command window
+set CH_RAN=1
 
 REM -------------------------------------------------------------------
 
