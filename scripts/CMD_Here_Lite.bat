@@ -1,6 +1,9 @@
 @echo off
 SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 REM -------------------------------------------------------------------
+REM CMD_Here
+REM	Copyright (c) 2025 Adisak Pochanayon (adisak@gmail.com)
+REM -------------------------------------------------------------------
 
 call :PushCD
 set CH_USE_CD=1

@@ -1,6 +1,9 @@
 @echo off
 SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 REM -------------------------------------------------------------------
+REM CMD_Here
+REM	Copyright (c) 2025 Adisak Pochanayon (adisak@gmail.com)
+REM -------------------------------------------------------------------
 
 REM Move this script somewhere into a global script path or
 REM add this directory to the global PATH variable.  Then

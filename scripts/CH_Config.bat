@@ -1,8 +1,9 @@
 @ECHO OFF
 REM -------------------------------------------------------------------
+REM CMD_Here
 REM Helper Batch File to set the configuration (environment)
-rem		for the CMD_Here.bat
-REM	Copyright (c) 2023 Adisak Pochanayon (adisak@gmail.com)
+REM		for the CMD_Here.bat
+REM	Copyright (c) 2025 Adisak Pochanayon (adisak@gmail.com)
 REM -------------------------------------------------------------------
 
 REM call :SetScriptPath
@@ -19,14 +20,30 @@ if NOT "%CH_CONFIG_HAS_RUN%"=="1" (
 
 REM -------------------------------------------------------------------
 
-REM Optional line below to prevent re-running configuration
-if "%CH_CONFIG_HAS_RUN%"=="1" GOTO :EXIT_BAT
+REM Optional check below to prevent re-running configuration
+if "%CH_CONFIG_ALLOW_RERUN%"=="1" GOTO :SKIP_PREVENT_RERUN
+if "%CH_CONFIG_HAS_RUN%"=="1"  (
+	echo CMD_Here has already been configured:
+	echo     "%CH_PATH%\CH_UserConfig.bat"
+	echo     will not be run
+	GOTO :EXIT_BAT
+)
+:SKIP_PREVENT_RERUN
+
+REM -------------------------------------------------------------------
 
 REM This section of the BATCH File can be modified by user for
 REM however they'd like to configure their working environment
+REM Or, you can use a lighter weight "CH_UserConfig.bat" file
+REM that will be run after the user configurations in this file.
 
-REM Set the Text Color to Green on a Black Background
+REM Example: Set the Text Color to Green on a Black Background
 REM COLOR 0A
+
+REM Run the CH_UserConfig.bat if it exists
+if EXIST "%CH_PATH%\CH_UserConfig.bat" (
+	call "%CH_PATH%\CH_UserConfig.bat"
+)
 
 REM -------------------------------------------------------------------
 

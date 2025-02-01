@@ -1,13 +1,16 @@
 @ECHO OFF
 SETLOCAL ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 REM -------------------------------------------------------------------
+REM CMD_Here
 REM Helper Batch File to start a CMD Window with current directory set
 REM		to same directory as this Batch File
-REM	Copyright (c) 2023 Adisak Pochanayon (adisak@gmail.com)
+REM	Copyright (c) 2025 Adisak Pochanayon (adisak@gmail.com)
 REM -------------------------------------------------------------------
 
+set CH_OLDPATH=%CH_PATH%
 REM Get the path for THIS script
 call :SetScriptPath CH_PATH
+set CH_SCRIPT_PATH=%CH_PATH%
 
 call :DetectFromWhere
 
@@ -38,15 +41,20 @@ REM Use 'set CH_OPEN_NEW_WINDOW=1' if you always want to open a new window
 REM Use 'set CH_OPEN_NEW_WINDOW=0' if you want to reuse CMD windows when you call
 REM		CMD_Here.bat for the first time (subsequent calls will open new windows)
 if "%CH_OPEN_NEW_WINDOW%"=="" (
-	set CH_OPEN_NEW_WINDOW=0
-	if "%CH_RAN%"=="1" (
+	if "%CH_OLDPATH%"=="" (
+		set CH_OPEN_NEW_WINDOW=0
+	) else (
 		REM If we're already in a CMD_Here window, then open a new one
 		set CH_OPEN_NEW_WINDOW=1
 	)
 )
 
-REM Set a flag that CMD_Here has already ran at least once in this command window
-set CH_RAN=1
+if NOT "%CH_OLDPATH%"=="%CH_PATH%" (
+	REM If we are running CMD_Here to open in a different directory
+	REM (than the previous CMD_Here if it was run before), then
+	REM clear the flag that says the CH_Config has already run
+	set CH_CONFIG_HAS_RUN=
+)
 
 REM -------------------------------------------------------------------
 
@@ -76,6 +84,9 @@ set CH_TITLE=Command Window at %CH_PATH%
 REM -------------------------------------------------------------------
 
 set CH_CONFIG=%CH_PATH%\CH_Config.bat
+if NOT EXIST "%CH_CONFIG%" (
+	set CH_CONFIG=%CH_SCRIPT_PATH%\CH_Config.bat
+)
 
 if "%CH_OPEN_NEW_WINDOW%"=="1" GOTO :OPEN_NEW_WINDOW
 
@@ -146,7 +157,11 @@ GOTO :EOF
 REM ---------------------------------------------
 
 :CH_ClearVars
-set CH_PATH=
+REM We want to leave CH_PATH set
+REM set CH_PATH=
+
+set CH_OLDPATH=
+set CH_SCRIPT_PATH=
 set CH_CD=
 set CH_USE_CD=
 set CH_BAT_PATH=
@@ -167,6 +182,8 @@ REM ---------------------------------------------
 :DebugCmdLine
 echo.
 echo CH_PATH           "%CH_PATH%"
+echo CH_OLDPATH        "%CH_OLDPATH%"
+echo CH_SCRIPT_PATH    "%CH_SCRIPT_PATH%"
 echo CH_CD             "%CH_CD%"
 echo CH_USE_CD         "%CH_USE_CD%"
 echo.
