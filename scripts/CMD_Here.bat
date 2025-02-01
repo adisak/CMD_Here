@@ -91,12 +91,13 @@ if NOT EXIST "%CH_CONFIG%" (
 if "%CH_OPEN_NEW_WINDOW%"=="1" GOTO :OPEN_NEW_WINDOW
 
 :USE_EXISTING_WINDOW
+pushd "%CH_WINDOW_DIR%"
 if EXIST "%CH_CONFIG%" (
-	call :CH_ClearVars & CMD /K TITLE %CH_TITLE% ^& cd /D "%CH_WINDOW_DIR%" ^& "%CH_CONFIG%"
+	call :CH_ClearVars & CMD /K TITLE %CH_TITLE% ^& "%CH_CONFIG%"
 ) else (
-	call :CH_ClearVars & CMD /K TITLE %CH_TITLE% ^& cd /D "%CH_WINDOW_DIR%"
+	call :CH_ClearVars & CMD /K TITLE %CH_TITLE%
 )
-
+popd
 GOTO :DONE_WITH_WINDOW
 
 :OPEN_NEW_WINDOW
