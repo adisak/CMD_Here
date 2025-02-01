@@ -25,7 +25,7 @@ if "%CH_CONFIG_ALLOW_RERUN%"=="1" GOTO :SKIP_PREVENT_RERUN
 if "%CH_CONFIG_HAS_RUN%"=="1"  (
 	echo CMD_Here has already been configured:
 	echo     "%CH_PATH%\CH_UserConfig.bat"
-	echo     will not be run
+	echo     will not be run. Run manually if required.
 	GOTO :EXIT_BAT
 )
 :SKIP_PREVENT_RERUN
