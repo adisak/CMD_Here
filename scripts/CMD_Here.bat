@@ -83,9 +83,9 @@ set CH_TITLE=Command Window at %CH_PATH%
 
 REM -------------------------------------------------------------------
 
-set CH_CONFIG=%CH_PATH%\CH_Config.bat
+set CH_CONFIG=%CH_PATH%\CH_RunConfig.bat
 if NOT EXIST "%CH_CONFIG%" (
-	set CH_CONFIG=%CH_SCRIPT_PATH%\CH_Config.bat
+	set CH_CONFIG=%CH_SCRIPT_PATH%\CH_RunConfig.bat
 )
 
 if "%CH_OPEN_NEW_WINDOW%"=="1" GOTO :OPEN_NEW_WINDOW
