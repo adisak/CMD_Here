@@ -16,5 +16,5 @@ ENDLOCAL
 GOTO :EOF
 
 :PushCD
-pushd %~dp0"
+pushd "%~dp0"
 GOTO :EOF
